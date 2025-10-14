@@ -1,0 +1,670 @@
+{
+  "chains": [
+    {
+      "chain": "req_789",
+      "initiator": "alice",
+      "confidence": "HIGH",
+      "avg_score": 1.5,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:15:23",
+          "source": "API",
+          "actor": "alice",
+          "action": "POST /reports/generate",
+          "meta": {
+            "request_id": "req_789"
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:15:24",
+          "source": "DB",
+          "actor": "job_svc",
+          "action": "SQL SELECT * FROM customers WHERE region='EU'",
+          "meta": {
+            "triggered_by": "req_789",
+            "rows": 1500
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:15:26",
+          "source": "STORAGE",
+          "actor": "job_svc",
+          "action": "WRITE reports/eu_customers_report_42.pdf",
+          "meta": {
+            "parent_request": "req_789",
+            "size_kb": 1250
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_800",
+      "initiator": "bob",
+      "confidence": "HIGH",
+      "avg_score": 1.45,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:16:45",
+          "source": "API",
+          "actor": "bob",
+          "action": "POST /export",
+          "meta": {
+            "request_id": "req_800"
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:16:46",
+          "source": "DB",
+          "actor": "export_svc",
+          "action": "SQL SELECT order_id, customer_name, total FROM orders",
+          "meta": {
+            "triggered_by": "req_800",
+            "rows": 3200
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:16:48",
+          "source": "STORAGE",
+          "actor": "export_svc",
+          "action": "WRITE exports/orders_export_20250930.csv",
+          "meta": {
+            "parent_request": "req_800",
+            "size_kb": 890
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_801",
+      "initiator": "alice",
+      "confidence": "LOW",
+      "avg_score": 0.0,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:17:12",
+          "source": "API",
+          "actor": "alice",
+          "action": "GET /data/customers",
+          "meta": {
+            "request_id": "req_801"
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_802",
+      "initiator": "charlie",
+      "confidence": "HIGH",
+      "avg_score": 1.45,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:18:30",
+          "source": "API",
+          "actor": "charlie",
+          "action": "POST /analytics/run",
+          "meta": {
+            "request_id": "req_802"
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:18:31",
+          "source": "DB",
+          "actor": "analytics_svc",
+          "action": "SQL SELECT date, revenue, cost FROM metrics WHERE date >= '2025-09-01'",
+          "meta": {
+            "triggered_by": "req_802",
+            "rows": 890
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:18:33",
+          "source": "STORAGE",
+          "actor": "analytics_svc",
+          "action": "WRITE analytics/revenue_metrics_sept.json",
+          "meta": {
+            "parent_request": "req_802",
+            "size_kb": 45
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_803",
+      "initiator": "alice",
+      "confidence": "HIGH",
+      "avg_score": 1.4,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:19:05",
+          "source": "API",
+          "actor": "alice",
+          "action": "DELETE /temp/cache",
+          "meta": {
+            "request_id": "req_803"
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:19:06",
+          "source": "DB",
+          "actor": "cleanup_svc",
+          "action": "SQL DELETE FROM temp_cache WHERE created_at < NOW() - INTERVAL 1 DAY",
+          "meta": {
+            "triggered_by": "req_803",
+            "rows": 450
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_804",
+      "initiator": "bob",
+      "confidence": "HIGH",
+      "avg_score": 1.5,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:20:15",
+          "source": "API",
+          "actor": "bob",
+          "action": "POST /reports/generate",
+          "meta": {
+            "request_id": "req_804"
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:20:16",
+          "source": "DB",
+          "actor": "job_svc",
+          "action": "SQL SELECT * FROM customers WHERE vip_status = true",
+          "meta": {
+            "triggered_by": "req_804",
+            "rows": 245
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:20:18",
+          "source": "STORAGE",
+          "actor": "job_svc",
+          "action": "WRITE reports/vip_customers_report_43.pdf",
+          "meta": {
+            "parent_request": "req_804",
+            "size_kb": 340
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_805",
+      "initiator": "david",
+      "confidence": "HIGH",
+      "avg_score": 1.4,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:21:33",
+          "source": "API",
+          "actor": "david",
+          "action": "GET /admin/users",
+          "meta": {
+            "request_id": "req_805"
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:21:35",
+          "source": "DB",
+          "actor": "admin_svc",
+          "action": "SQL SELECT user_id, role, last_login FROM users WHERE role = 'admin'",
+          "meta": {
+            "triggered_by": "req_805",
+            "rows": 12
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_806",
+      "initiator": "alice",
+      "confidence": "HIGH",
+      "avg_score": 1.5,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:22:10",
+          "source": "API",
+          "actor": "alice",
+          "action": "POST /backup/create",
+          "meta": {
+            "request_id": "req_806"
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:22:11",
+          "source": "DB",
+          "actor": "backup_svc",
+          "action": "SQL SELECT * FROM critical_data",
+          "meta": {
+            "triggered_by": "req_806",
+            "rows": 5600
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:22:14",
+          "source": "STORAGE",
+          "actor": "backup_svc",
+          "action": "WRITE backups/critical_data_backup_20250930.tar.gz",
+          "meta": {
+            "parent_request": "req_806",
+            "size_kb": 45600
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_807",
+      "initiator": "charlie",
+      "confidence": "HIGH",
+      "avg_score": 1.5,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:23:45",
+          "source": "API",
+          "actor": "charlie",
+          "action": "POST /export",
+          "meta": {
+            "request_id": "req_807"
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:23:46",
+          "source": "DB",
+          "actor": "export_svc",
+          "action": "SQL SELECT product_id, sales, inventory FROM products",
+          "meta": {
+            "triggered_by": "req_807",
+            "rows": 1800
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:23:49",
+          "source": "STORAGE",
+          "actor": "export_svc",
+          "action": "WRITE exports/products_inventory_20250930.xlsx",
+          "meta": {
+            "parent_request": "req_807",
+            "size_kb": 567
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_808",
+      "initiator": "bob",
+      "confidence": "LOW",
+      "avg_score": 0.0,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:24:20",
+          "source": "API",
+          "actor": "bob",
+          "action": "GET /data/orders",
+          "meta": {
+            "request_id": "req_808"
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_809",
+      "initiator": "alice",
+      "confidence": "HIGH",
+      "avg_score": 1.5,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:25:50",
+          "source": "API",
+          "actor": "alice",
+          "action": "POST /reports/generate",
+          "meta": {
+            "request_id": "req_809"
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:25:51",
+          "source": "DB",
+          "actor": "job_svc",
+          "action": "SQL SELECT customer_id, purchase_history FROM customers",
+          "meta": {
+            "triggered_by": "req_809",
+            "rows": 2100
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:25:54",
+          "source": "STORAGE",
+          "actor": "job_svc",
+          "action": "WRITE reports/customer_purchase_analysis_44.pdf",
+          "meta": {
+            "parent_request": "req_809",
+            "size_kb": 780
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_810",
+      "initiator": "eve",
+      "confidence": "HIGH",
+      "avg_score": 1.5,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:26:30",
+          "source": "API",
+          "actor": "eve",
+          "action": "POST /sync/external",
+          "meta": {
+            "request_id": "req_810"
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:26:31",
+          "source": "DB",
+          "actor": "sync_svc",
+          "action": "SQL SELECT * FROM external_mappings",
+          "meta": {
+            "triggered_by": "req_810",
+            "rows": 890
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:26:34",
+          "source": "STORAGE",
+          "actor": "sync_svc",
+          "action": "WRITE sync/external_mapping_snapshot.json",
+          "meta": {
+            "parent_request": "req_810",
+            "size_kb": 120
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_811",
+      "initiator": "bob",
+      "confidence": "LOW",
+      "avg_score": 0.0,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:27:15",
+          "source": "API",
+          "actor": "bob",
+          "action": "DELETE /reports/old",
+          "meta": {
+            "request_id": "req_811"
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_812",
+      "initiator": "alice",
+      "confidence": "HIGH",
+      "avg_score": 1.45,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:28:05",
+          "source": "API",
+          "actor": "alice",
+          "action": "GET /metrics/daily",
+          "meta": {
+            "request_id": "req_812"
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:28:06",
+          "source": "DB",
+          "actor": "metrics_svc",
+          "action": "SQL SELECT metric_name, value, timestamp FROM daily_metrics WHERE date = CURRENT_DATE",
+          "meta": {
+            "triggered_by": "req_812",
+            "rows": 45
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:28:08",
+          "source": "STORAGE",
+          "actor": "metrics_svc",
+          "action": "WRITE metrics/daily_snapshot_20250930.json",
+          "meta": {
+            "parent_request": "req_812",
+            "size_kb": 12
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_813",
+      "initiator": "charlie",
+      "confidence": "HIGH",
+      "avg_score": 1.45,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:29:40",
+          "source": "API",
+          "actor": "charlie",
+          "action": "POST /notifications/send",
+          "meta": {
+            "request_id": "req_813"
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:29:41",
+          "source": "DB",
+          "actor": "notification_svc",
+          "action": "SQL SELECT user_id, email, preferences FROM users WHERE notify_enabled = true",
+          "meta": {
+            "triggered_by": "req_813",
+            "rows": 3400
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:29:44",
+          "source": "STORAGE",
+          "actor": "notification_svc",
+          "action": "WRITE notifications/batch_send_queue_12345.json",
+          "meta": {
+            "parent_request": "req_813",
+            "size_kb": 234
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_814",
+      "initiator": "david",
+      "confidence": "HIGH",
+      "avg_score": 1.45,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:30:22",
+          "source": "API",
+          "actor": "david",
+          "action": "POST /audit/export",
+          "meta": {
+            "request_id": "req_814"
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:30:23",
+          "source": "DB",
+          "actor": "audit_svc",
+          "action": "SQL SELECT * FROM audit_trail WHERE timestamp >= '2025-09-01'",
+          "meta": {
+            "triggered_by": "req_814",
+            "rows": 12500
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:30:26",
+          "source": "STORAGE",
+          "actor": "audit_svc",
+          "action": "WRITE audit/compliance_export_sept2025.csv",
+          "meta": {
+            "parent_request": "req_814",
+            "size_kb": 8900
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_815",
+      "initiator": "alice",
+      "confidence": "LOW",
+      "avg_score": 0.0,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:31:10",
+          "source": "API",
+          "actor": "alice",
+          "action": "POST /analytics/run",
+          "meta": {
+            "request_id": "req_815"
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_816",
+      "initiator": "bob",
+      "confidence": "HIGH",
+      "avg_score": 1.55,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:32:05",
+          "source": "API",
+          "actor": "bob",
+          "action": "GET /dashboard/stats",
+          "meta": {
+            "request_id": "req_816"
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:32:06",
+          "source": "DB",
+          "actor": "dashboard_svc",
+          "action": "SQL SELECT metric, current_value, trend FROM dashboard_stats",
+          "meta": {
+            "triggered_by": "req_816",
+            "rows": 18
+          }
+        },
+        {
+          "timestamp": "2025-09-30T09:32:08",
+          "source": "STORAGE",
+          "actor": "dashboard_svc",
+          "action": "READ cache/dashboard_stats.json",
+          "meta": {
+            "parent_request": "req_816",
+            "size_kb": 8
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_817",
+      "initiator": "eve",
+      "confidence": "LOW",
+      "avg_score": 0.0,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:33:20",
+          "source": "API",
+          "actor": "eve",
+          "action": "POST /import/data",
+          "meta": {
+            "request_id": "req_817"
+          }
+        }
+      ]
+    },
+    {
+      "chain": "req_818",
+      "initiator": "alice",
+      "confidence": "LOW",
+      "avg_score": 0.0,
+      "events": [
+        {
+          "timestamp": "2025-09-30T09:34:15",
+          "source": "API",
+          "actor": "alice",
+          "action": "POST /cleanup/temp",
+          "meta": {
+            "request_id": "req_818"
+          }
+        }
+      ]
+    }
+  ],
+  "orphans": [
+    {
+      "timestamp": "2025-09-30T09:17:13",
+      "source": "DB",
+      "actor": "api_svc",
+      "action": "SQL SELECT id, name, email FROM customers LIMIT 100",
+      "meta": {
+        "rows": 100
+      }
+    },
+    {
+      "timestamp": "2025-09-30T09:24:21",
+      "source": "DB",
+      "actor": "api_svc",
+      "action": "SQL SELECT * FROM orders WHERE status = 'pending'",
+      "meta": {
+        "rows": 234
+      }
+    },
+    {
+      "timestamp": "2025-09-30T09:27:17",
+      "source": "DB",
+      "actor": "cleanup_svc",
+      "action": "SQL DELETE FROM reports WHERE generated_at < NOW() - INTERVAL 90 DAY",
+      "meta": {
+        "rows": 67
+      }
+    },
+    {
+      "timestamp": "2025-09-30T09:31:12",
+      "source": "DB",
+      "actor": "analytics_svc",
+      "action": "SQL SELECT category, sum(amount) FROM transactions GROUP BY category",
+      "meta": {
+        "rows": 25
+      }
+    },
+    {
+      "timestamp": "2025-09-30T09:31:45",
+      "source": "STORAGE",
+      "actor": "analytics_svc",
+      "action": "READ data/transactions_raw_sept.parquet",
+      "meta": {
+        "size_kb": 12300
+      }
+    },
+    {
+      "timestamp": "2025-09-30T09:33:55",
+      "source": "STORAGE",
+      "actor": "import_svc",
+      "action": "READ imports/external_data_feed.csv",
+      "meta": {
+        "size_kb": 4500
+      }
+    },
+    {
+      "timestamp": "2025-09-30T09:35:12",
+      "source": "STORAGE",
+      "actor": "cleanup_svc",
+      "action": "DELETE temp/orphaned_file_xyz.tmp",
+      "meta": {
+        "size_kb": 0
+      }
+    }
+  ],
+  "parse_errors": []
+}

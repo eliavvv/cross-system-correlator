@@ -1,0 +1,26 @@
+# Test file for error handling - malformed log entries
+# A production-grade tool should handle these gracefully
+
+# Missing fields
+2025-09-30 09:15:23 | alice | POST /reports/generate
+
+# Invalid timestamp
+INVALID_TIME | bob | GET /data | request_id=req_999
+
+# Completely broken line
+This is not a valid log entry at all!!!
+
+# Empty line (should be skipped)
+
+
+# Partial data
+2025-09-30 09:16:00 |
+
+# Special characters / injection attempt
+2025-09-30 09:17:00 | user'; DROP TABLE users; -- | GET /test | request_id=req_sql_inject
+
+# Future timestamp (validation test)
+2030-12-31 23:59:59 | alice | POST /time_travel | request_id=req_future
+
+# Negative numbers (validation test)
+2025-09-30 09:18:00 | bob | SELECT | request_id=req_negative | rows=-1000

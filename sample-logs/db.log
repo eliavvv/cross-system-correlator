@@ -1,0 +1,18 @@
+[09:15:24] user=job_svc query="SELECT * FROM customers WHERE region='EU'" triggered_by=req_789 rows=1500
+[09:16:46] user=export_svc query="SELECT order_id, customer_name, total FROM orders" triggered_by=req_800 rows=3200
+[09:17:13] user=api_svc query="SELECT id, name, email FROM customers LIMIT 100" rows=100
+[09:18:31] user=analytics_svc query="SELECT date, revenue, cost FROM metrics WHERE date >= '2025-09-01'" triggered_by=req_802 rows=890
+[09:19:06] user=cleanup_svc query="DELETE FROM temp_cache WHERE created_at < NOW() - INTERVAL 1 DAY" triggered_by=req_803 rows=450
+[09:20:16] user=job_svc query="SELECT * FROM customers WHERE vip_status = true" triggered_by=req_804 rows=245
+[09:21:35] user=admin_svc query="SELECT user_id, role, last_login FROM users WHERE role = 'admin'" triggered_by=req_805 rows=12
+[09:22:11] user=backup_svc query="SELECT * FROM critical_data" triggered_by=req_806 rows=5600
+[09:23:46] user=export_svc query="SELECT product_id, sales, inventory FROM products" triggered_by=req_807 rows=1800
+[09:24:21] user=api_svc query="SELECT * FROM orders WHERE status = 'pending'" rows=234
+[09:25:51] user=job_svc query="SELECT customer_id, purchase_history FROM customers" triggered_by=req_809 rows=2100
+[09:26:31] user=sync_svc query="SELECT * FROM external_mappings" triggered_by=req_810 rows=890
+[09:27:17] user=cleanup_svc query="DELETE FROM reports WHERE generated_at < NOW() - INTERVAL 90 DAY" rows=67
+[09:28:06] user=metrics_svc query="SELECT metric_name, value, timestamp FROM daily_metrics WHERE date = CURRENT_DATE" triggered_by=req_812 rows=45
+[09:29:41] user=notification_svc query="SELECT user_id, email, preferences FROM users WHERE notify_enabled = true" triggered_by=req_813 rows=3400
+[09:30:23] user=audit_svc query="SELECT * FROM audit_trail WHERE timestamp >= '2025-09-01'" triggered_by=req_814 rows=12500
+[09:31:12] user=analytics_svc query="SELECT category, sum(amount) FROM transactions GROUP BY category" rows=25
+[09:32:06] user=dashboard_svc query="SELECT metric, current_value, trend FROM dashboard_stats" triggered_by=req_816 rows=18

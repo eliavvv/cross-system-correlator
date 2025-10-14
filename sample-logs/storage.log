@@ -1,0 +1,15 @@
+{"timestamp": "2025-09-30T09:15:26", "actor": "job_svc", "action": "WRITE", "file": "reports/eu_customers_report_42.pdf", "size_kb": 1250, "parent_request": "req_789"}
+{"timestamp": "2025-09-30T09:16:48", "actor": "export_svc", "action": "WRITE", "file": "exports/orders_export_20250930.csv", "size_kb": 890, "parent_request": "req_800"}
+{"timestamp": "2025-09-30T09:18:33", "actor": "analytics_svc", "action": "WRITE", "file": "analytics/revenue_metrics_sept.json", "size_kb": 45, "parent_request": "req_802"}
+{"timestamp": "2025-09-30T09:20:18", "actor": "job_svc", "action": "WRITE", "file": "reports/vip_customers_report_43.pdf", "size_kb": 340, "parent_request": "req_804"}
+{"timestamp": "2025-09-30T09:22:14", "actor": "backup_svc", "action": "WRITE", "file": "backups/critical_data_backup_20250930.tar.gz", "size_kb": 45600, "parent_request": "req_806"}
+{"timestamp": "2025-09-30T09:23:49", "actor": "export_svc", "action": "WRITE", "file": "exports/products_inventory_20250930.xlsx", "size_kb": 567, "parent_request": "req_807"}
+{"timestamp": "2025-09-30T09:25:54", "actor": "job_svc", "action": "WRITE", "file": "reports/customer_purchase_analysis_44.pdf", "size_kb": 780, "parent_request": "req_809"}
+{"timestamp": "2025-09-30T09:26:34", "actor": "sync_svc", "action": "WRITE", "file": "sync/external_mapping_snapshot.json", "size_kb": 120, "parent_request": "req_810"}
+{"timestamp": "2025-09-30T09:28:08", "actor": "metrics_svc", "action": "WRITE", "file": "metrics/daily_snapshot_20250930.json", "size_kb": 12, "parent_request": "req_812"}
+{"timestamp": "2025-09-30T09:29:44", "actor": "notification_svc", "action": "WRITE", "file": "notifications/batch_send_queue_12345.json", "size_kb": 234, "parent_request": "req_813"}
+{"timestamp": "2025-09-30T09:30:26", "actor": "audit_svc", "action": "WRITE", "file": "audit/compliance_export_sept2025.csv", "size_kb": 8900, "parent_request": "req_814"}
+{"timestamp": "2025-09-30T09:31:45", "actor": "analytics_svc", "action": "READ", "file": "data/transactions_raw_sept.parquet", "size_kb": 12300}
+{"timestamp": "2025-09-30T09:32:08", "actor": "dashboard_svc", "action": "READ", "file": "cache/dashboard_stats.json", "size_kb": 8, "parent_request": "req_816"}
+{"timestamp": "2025-09-30T09:33:55", "actor": "import_svc", "action": "READ", "file": "imports/external_data_feed.csv", "size_kb": 4500}
+{"timestamp": "2025-09-30T09:35:12", "actor": "cleanup_svc", "action": "DELETE", "file": "temp/orphaned_file_xyz.tmp", "size_kb": 0}
