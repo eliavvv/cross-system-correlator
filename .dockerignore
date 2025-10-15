@@ -4,3 +4,4 @@ __pycache__
 .git
 .github
 demo-output*.*
+cross_system_correlator.egg-info/
