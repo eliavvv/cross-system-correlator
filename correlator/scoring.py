@@ -1,14 +1,39 @@
+"""Cross-System Event Correlator module."""
 
 from __future__ import annotations
+
 import re
 from typing import List
+
 from .models import Event
 
+
 def tokenize(s: str) -> set:
+    """
+
+    Args:
+      s: str:
+      s: str:
+      s: str:
+
+    Returns:
+
+    """
     s = s.lower()
     return set(re.findall(r"[a-z0-9]+", s))
 
+
 def time_bonus(delta_sec: float) -> float:
+    """
+
+    Args:
+      delta_sec: float:
+      delta_sec: float:
+      delta_sec: float:
+
+    Returns:
+
+    """
     if delta_sec <= 5:
         return 0.30
     if delta_sec <= 20:
@@ -17,7 +42,21 @@ def time_bonus(delta_sec: float) -> float:
         return 0.10
     return 0.0
 
+
 def endpoint_actor_hint(endpoint: str, actor: str) -> float:
+    """
+
+    Args:
+      endpoint: str:
+      actor: str:
+      endpoint: str:
+      actor: str:
+      endpoint: str:
+      actor: str:
+
+    Returns:
+
+    """
     hints = {
         "/reports/generate": {"job_svc", "export_svc"},
         "/export": {"export_svc"},
@@ -39,7 +78,21 @@ def endpoint_actor_hint(endpoint: str, actor: str) -> float:
             return 0.10
     return 0.0
 
+
 def similarity_bonus(a: str, b: str) -> float:
+    """
+
+    Args:
+      a: str:
+      b: str:
+      a: str:
+      b: str:
+      a: str:
+      b: str:
+
+    Returns:
+
+    """
     ta, tb = tokenize(a), tokenize(b)
     if not ta or not tb:
         return 0.0
@@ -50,7 +103,21 @@ def similarity_bonus(a: str, b: str) -> float:
         return 0.10
     return 0.0
 
+
 def score_link(prev: Event, nxt: Event) -> float:
+    """
+
+    Args:
+      prev: Event:
+      nxt: Event:
+      prev: Event:
+      nxt: Event:
+      prev: Event:
+      nxt: Event:
+
+    Returns:
+
+    """
     score = 0.0
     rid_prev = prev.request_id()
     rid_next = nxt.request_id()
@@ -67,7 +134,18 @@ def score_link(prev: Event, nxt: Event) -> float:
         score += endpoint_actor_hint(endpoint, nxt.actor)
     return score
 
+
 def confidence(score: float) -> str:
+    """
+
+    Args:
+      score: float:
+      score: float:
+      score: float:
+
+    Returns:
+
+    """
     if score >= 1.0:
         return "HIGH"
     if score >= 0.5:

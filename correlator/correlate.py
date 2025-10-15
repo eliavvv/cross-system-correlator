@@ -1,18 +1,38 @@
+"""Cross-System Event Correlator module."""
 
 from __future__ import annotations
+
 from dataclasses import dataclass, field
-from typing import List, Dict, Any, Optional
+from typing import Any, Dict, List, Optional
+
 from .models import Event
-from .scoring import score_link, confidence
+from .scoring import confidence, score_link
+
 
 @dataclass
 class Chain:
+    """ """
+
     key: str
     initiator: Optional[str]
     events: List[Event] = field(default_factory=list)
     score: float = 0.0
 
+
 def build_chains(events: List[Event], window_sec: int = 60):
+    """
+
+    Args:
+      events: List[Event]:
+      window_sec: int:  (Default value = 60)
+      events: List[Event]:
+      window_sec: int:  (Default value = 60)
+      events: List[Event]:
+      window_sec: int:  (Default value = 60)
+
+    Returns:
+
+    """
     by_rid: Dict[str, Chain] = {}
     orphans: List[Event] = []
     for e in sorted(events, key=lambda x: x.ts):
@@ -48,13 +68,24 @@ def build_chains(events: List[Event], window_sec: int = 60):
         total = 0.0
         pairs = 0
         for i in range(1, len(ch.events)):
-            total += score_link(ch.events[i-1], ch.events[i])
+            total += score_link(ch.events[i - 1], ch.events[i])
             pairs += 1
         ch.score = total / pairs if pairs else 0.0
     chains = sorted(by_rid.values(), key=lambda c: c.events[0].ts)
     return chains, unattached
 
+
 def format_text(chains: List[Chain]) -> str:
+    """
+
+    Args:
+      chains: List[Chain]:
+      chains: List[Chain]:
+      chains: List[Chain]:
+
+    Returns:
+
+    """
     lines: List[str] = []
     for ch in chains:
         conf = confidence(ch.score)
@@ -67,24 +98,42 @@ def format_text(chains: List[Chain]) -> str:
                 extra = f" ({e.meta['rows']} rows)"
             if e.source == "STORAGE" and "size_kb" in e.meta:
                 extra = f" ({e.meta['size_kb']} KB)"
-            lines.append(f"  [{hhmmss}] {e.source:<7}| {e.actor:<10}| {e.action}{extra}")
+            lines.append(
+                f"  [{hhmmss}] {e.source:<7}| {e.actor:<10}| {e.action}{extra}"
+            )
         lines.append(f"\nCorrelation: {conf} (avg score {ch.score:.2f})\n")
     return "\n".join(lines)
 
+
 def format_json(chains: List[Chain]) -> List[Dict[str, Any]]:
+    """
+
+    Args:
+      chains: List[Chain]:
+      chains: List[Chain]:
+      chains: List[Chain]:
+
+    Returns:
+
+    """
     out = []
     for ch in chains:
-        out.append({
-            "chain": ch.key,
-            "initiator": ch.initiator,
-            "confidence": confidence(ch.score),
-            "avg_score": round(ch.score, 2),
-            "events": [{
-                "timestamp": e.ts.isoformat(),
-                "source": e.source,
-                "actor": e.actor,
-                "action": e.action,
-                "meta": e.meta
-            } for e in ch.events]
-        })
+        out.append(
+            {
+                "chain": ch.key,
+                "initiator": ch.initiator,
+                "confidence": confidence(ch.score),
+                "avg_score": round(ch.score, 2),
+                "events": [
+                    {
+                        "timestamp": e.ts.isoformat(),
+                        "source": e.source,
+                        "actor": e.actor,
+                        "action": e.action,
+                        "meta": e.meta,
+                    }
+                    for e in ch.events
+                ],
+            }
+        )
     return out
