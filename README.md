@@ -17,9 +17,19 @@ python -m correlator.cli correlate \
 
 Docker
 
+# Build the image (run this once in the project root)
 docker build -t correlator .
-docker run --rm -it -v $(pwd)/sample-logs:/app/sample-logs correlator \
-correlate --api sample-logs/api.log --db sample-logs/db.log --storage sample-logs/storage.log --date 2025-09-30 --window 60 --format text
+
+# Run the container (Linux/macOS)
+docker run --rm -it -v "$(pwd)/sample-logs:/app/sample-logs" correlator \
+  correlate --api sample-logs/api.log --db sample-logs/db.log --storage sample-logs/storage.log \
+  --date 2025-09-30 --window 60 --format text
+
+# Run the container (Windows PowerShell)
+docker run --rm -it -v "${PWD}\sample-logs:/app/sample-logs" correlator `
+  correlate --api sample-logs/api.log --db sample-logs/db.log --storage sample-logs/storage.log `
+  --date 2025-09-30 --window 60 --format text
+
 
 CLI
 
